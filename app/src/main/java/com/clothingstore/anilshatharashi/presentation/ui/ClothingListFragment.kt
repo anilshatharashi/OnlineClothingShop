@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -85,7 +84,7 @@ class ClothingListFragment : BaseFragment() {
             }
         }
         viewModel.isNextPageLoading.observe(viewLifecycleOwner) {
-//            if (it == true) clothingListAdapter.addProgressBar()
+            if (it == true) clothingListAdapter.addProgressBar()
         }
     }
 
@@ -115,8 +114,8 @@ class ClothingListFragment : BaseFragment() {
     }
 
     private fun showContentView(uiModel: UiClothingModel) {
-//        if (pageIndex != PAGE_START) clothingListAdapter.removeProgressBar()
-        clothingListAdapter.asyncListDiffer.submitList(uiModel.clothingList)
+        if (pageIndex != PAGE_START) clothingListAdapter.removeProgressBar()
+        clothingListAdapter.addClothingList(uiModel.clothingList)
 
         hideLoadingView()
         emptyStateView.visibility = View.GONE
@@ -137,6 +136,7 @@ class ClothingListFragment : BaseFragment() {
     }
 
     override fun onContentAvailable() {
+        if (emptyStateView.visibility != View.VISIBLE) return
         viewModel.fetchClothingList()
     }
 

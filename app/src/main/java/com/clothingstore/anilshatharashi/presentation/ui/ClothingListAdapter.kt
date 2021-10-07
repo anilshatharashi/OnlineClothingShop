@@ -1,9 +1,8 @@
 package com.clothingstore.anilshatharashi.presentation.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.clothingstore.anilshatharashi.R
 import com.clothingstore.anilshatharashi.databinding.ViewItemClothingListBinding
@@ -15,8 +14,7 @@ class ClothingListAdapter(private val clothingItemClickListener: (id: Int) -> Un
 
     private lateinit var clothingItemBinding: ViewItemClothingListBinding
     private lateinit var loadingItemBinding: ViewItemLoadingBinding
-    private val clothingListDiffCallback = ClothingListDiffCallback()
-    val asyncListDiffer = AsyncListDiffer(this, clothingListDiffCallback)
+    private val clothingList = mutableListOf<UiClothing?>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -39,30 +37,36 @@ class ClothingListAdapter(private val clothingItemClickListener: (id: Int) -> Un
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ClothingItemViewHolder ->
-                asyncListDiffer.currentList[position].run {
+                clothingList[position]?.run {
                     holder.bind(this)
                     holder.itemView.setOnClickListener { clothingItemClickListener.invoke(id) }
                 }
         }
     }
 
-    override fun getItemCount(): Int = asyncListDiffer.currentList.size
+    override fun getItemCount(): Int = clothingList.size
 
     override fun getItemViewType(position: Int): Int =
-        if (asyncListDiffer.currentList[position] == null) TYPE_LOADING else TYPE_CONTENT
+        if (clothingList[position] == null) TYPE_LOADING else TYPE_CONTENT
 
     fun addProgressBar() {
-        asyncListDiffer.currentList.add(null)
-        notifyItemInserted(asyncListDiffer.currentList.size - 1)
+        clothingList.add(null)
+        notifyItemInserted(clothingList.size - 1)
     }
 
     fun removeProgressBar() {
-        asyncListDiffer.currentList.apply {
+        clothingList.apply {
             if (size != 0) {
                 removeAt(size - 1)
                 notifyItemRemoved(size)
             }
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun addClothingList(list: List<UiClothing>) {
+        clothingList.addAll(list)
+        notifyDataSetChanged()
     }
 
     inner class ClothingItemViewHolder(private val binding: ViewItemClothingListBinding) :
@@ -100,14 +104,5 @@ class ClothingListAdapter(private val clothingItemClickListener: (id: Int) -> Un
         // in local Database. Ideal way is to make a network request to fetch the Configuration and keep updating it
         // (for every two weeks or four weeks)
         private const val posterSize: String = "/w300/"
-    }
-
-    class ClothingListDiffCallback : DiffUtil.ItemCallback<UiClothing>() {
-        override fun areItemsTheSame(oldItem: UiClothing, newItem: UiClothing): Boolean =
-            oldItem.id == newItem.id && oldItem.brandId == newItem.brandId
-
-        override fun areContentsTheSame(oldItem: UiClothing, newItem: UiClothing): Boolean =
-            oldItem.description == newItem.description && oldItem.address == newItem.address
-                    && oldItem.picturesData == newItem.picturesData
     }
 }

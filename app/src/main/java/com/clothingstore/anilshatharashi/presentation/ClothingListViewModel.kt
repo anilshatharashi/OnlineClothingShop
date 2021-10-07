@@ -2,6 +2,7 @@ package com.clothingstore.anilshatharashi.presentation
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.clothingstore.anilshatharashi.domain.ClothingList
 import com.clothingstore.anilshatharashi.domain.usecase.GetClothingListUseCase
 import com.clothingstore.anilshatharashi.presentation.ClothingListState.*
 import com.clothingstore.anilshatharashi.presentation.mapper.ClothingListUiMapper
@@ -35,11 +36,13 @@ class ClothingListViewModel @Inject constructor(
     }
 
     fun fetchClothingList() {
+        val currentPage = pageIndex.value!!
+        if (currentPage > 1) _isNextPageLoading.postValue(true)
         viewModelScope.launch {
             try {
-                getClothingListUseCase.execute(pageIndex.value!!)
+                getClothingListUseCase.execute(currentPage)
                     .collect {
-                        _clothingListState.value = it?.let { Success(mapper.mapFrom(it)) }
+                        _clothingListState.value = it?.let { handleSuccess(it) }
                             ?: Failure(ErrorFetchingClothingListData)
                     }
             } catch (exception: Exception) {
@@ -52,8 +55,13 @@ class ClothingListViewModel @Inject constructor(
         }
     }
 
+    private fun handleSuccess(it: ClothingList): Success {
+        _isLastPage.postValue(it.meta?.end)
+        _isNextPageLoading.postValue(false)
+        return Success(mapper.mapFrom(it))
+    }
+
     fun onClothingItemSelected(id: Int) {
-        // This feature is not required to be implemented
         _selectedClothingLiveData.postValue(id)
     }
 }
