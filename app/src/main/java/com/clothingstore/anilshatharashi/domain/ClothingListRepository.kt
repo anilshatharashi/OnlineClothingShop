@@ -4,6 +4,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ClothingListRepository {
 
-    suspend fun getClothingList(pageIndex: Int): Flow<ClothingList?>
+    suspend fun getClothingList(): Flow<ClothingList?>
 
 }

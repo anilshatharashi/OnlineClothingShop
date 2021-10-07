@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ClothingListRemoteDataSource {
 
-    suspend fun fetchClothingListData(pageIndex: Int): Flow<ClothingListResponse>
+    suspend fun fetchClothingListData(): Flow<ClothingListResponse>
 }

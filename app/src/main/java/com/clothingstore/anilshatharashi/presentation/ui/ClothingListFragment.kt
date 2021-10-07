@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,6 @@ import com.clothingstore.anilshatharashi.presentation.ErrorFetchingClothingListD
 import com.clothingstore.anilshatharashi.presentation.NoInternet
 import com.clothingstore.anilshatharashi.presentation.UnknownException
 import com.clothingstore.anilshatharashi.presentation.model.UiClothingModel
-import com.clothingstore.anilshatharashi.presentation.ui.RecyclerViewPaginationListener.Companion.PAGE_START
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,8 +29,6 @@ class ClothingListFragment : BaseFragment() {
     private lateinit var _progressBar: ProgressBar
     private lateinit var emptyStateView: TextView
     private val viewModel: ClothingListViewModel by activityViewModels()
-
-    private var pageIndex: Int = PAGE_START
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,21 +47,6 @@ class ClothingListFragment : BaseFragment() {
             _progressBar = progressBar
             emptyStateView = emptyState
 
-            recyclerView.addOnScrollListener(object :
-                RecyclerViewPaginationListener(layoutManager) {
-
-                override val isLastPage: Boolean
-                    get() = viewModel.isLastPage.value!!
-
-                override val isLoading: Boolean
-                    get() = viewModel.isNextPageLoading.value!!
-
-                override fun loadMoreItems() {
-                    viewModel.pageIndex.value = pageIndex++
-                    viewModel.fetchClothingList()
-                }
-            })
-
         }
         clothingListAdapter = ClothingListAdapter { viewModel.onClothingItemSelected(it) }
         recyclerView.adapter = clothingListAdapter
@@ -83,9 +64,6 @@ class ClothingListFragment : BaseFragment() {
                 is Failure -> handleFailure(it.exception)
                 else -> return@observe
             }
-        }
-        viewModel.isNextPageLoading.observe(viewLifecycleOwner) {
-//            if (it == true) clothingListAdapter.addProgressBar()
         }
     }
 
@@ -115,7 +93,6 @@ class ClothingListFragment : BaseFragment() {
     }
 
     private fun showContentView(uiModel: UiClothingModel) {
-//        if (pageIndex != PAGE_START) clothingListAdapter.removeProgressBar()
         clothingListAdapter.asyncListDiffer.submitList(uiModel.clothingList)
 
         hideLoadingView()

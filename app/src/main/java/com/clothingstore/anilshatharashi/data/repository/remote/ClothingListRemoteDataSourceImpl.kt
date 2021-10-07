@@ -12,10 +12,10 @@ class ClothingListRemoteDataSourceImpl @Inject constructor(
     private val clothingListApi: ClothingListApi,
 ) : ClothingListRemoteDataSource {
 
-    override suspend fun fetchClothingListData(pageIndex: Int): Flow<ClothingListResponse> =
+    override suspend fun fetchClothingListData(): Flow<ClothingListResponse> =
         flow {
             if (!networkHandler.isConnected()) throw NoInternet
-            val response = clothingListApi.fetchPopularClothingListData(pageIndex)
+            val response = clothingListApi.fetchPopularClothingListData()
             emit(response)
         }
 }

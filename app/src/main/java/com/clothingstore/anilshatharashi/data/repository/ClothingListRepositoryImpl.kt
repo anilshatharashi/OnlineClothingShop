@@ -5,8 +5,6 @@ import com.clothingstore.anilshatharashi.data.repository.remote.model.ClothingLi
 import com.clothingstore.anilshatharashi.domain.ClothingList
 import com.clothingstore.anilshatharashi.domain.ClothingListRepository
 import com.clothingstore.anilshatharashi.domain.mapper.Mapper
-import com.clothingstore.anilshatharashi.platform.NetworkHandler
-import com.clothingstore.anilshatharashi.presentation.NoInternet
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -16,8 +14,8 @@ class ClothingListRepositoryImpl @Inject constructor(
     private val mapper: Mapper<ClothingListResponse?, ClothingList?>
 ) : ClothingListRepository {
 
-    override suspend fun getClothingList(pageIndex: Int): Flow<ClothingList?> =
-        remoteDataSource.fetchClothingListData(pageIndex).map {
+    override suspend fun getClothingList(): Flow<ClothingList?> =
+        remoteDataSource.fetchClothingListData().map {
             mapper.mapFrom(it)
         }
 }

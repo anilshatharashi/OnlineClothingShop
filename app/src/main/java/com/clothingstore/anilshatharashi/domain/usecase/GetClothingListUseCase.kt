@@ -6,8 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetClothingListUseCase @Inject constructor(private val repository: ClothingListRepository) :
-    UseCase<Int, ClothingList?>() {
+    UseCase<ClothingList?>() {
 
-    override suspend fun buildUseCase(parms: Int): Flow<ClothingList?> =
-        repository.getClothingList(parms)
+    override suspend fun buildUseCase(): Flow<ClothingList?> = repository.getClothingList()
 }

@@ -16,13 +16,6 @@ class ClothingListViewModel @Inject constructor(
     private val getClothingListUseCase: GetClothingListUseCase,
     private val mapper: ClothingListUiMapper
 ) : ViewModel() {
-    val pageIndex = MutableLiveData(1)
-
-    private val _isLastPage = MutableLiveData(false)
-    val isLastPage: LiveData<Boolean> = _isLastPage
-
-    private val _isNextPageLoading = MutableLiveData(false)
-    val isNextPageLoading: LiveData<Boolean> = _isNextPageLoading
 
     private val _selectedClothingLiveData = SingleLiveEvent<Int>()
     val selectedClothingLiveData: LiveData<Int> = _selectedClothingLiveData
@@ -37,7 +30,7 @@ class ClothingListViewModel @Inject constructor(
     fun fetchClothingList() {
         viewModelScope.launch {
             try {
-                getClothingListUseCase.execute(pageIndex.value!!)
+                getClothingListUseCase.execute()
                     .collect {
                         _clothingListState.value = it?.let { Success(mapper.mapFrom(it)) }
                             ?: Failure(ErrorFetchingClothingListData)

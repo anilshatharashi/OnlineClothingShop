@@ -11,38 +11,24 @@ import com.clothingstore.anilshatharashi.databinding.ViewItemLoadingBinding
 import com.clothingstore.anilshatharashi.presentation.model.UiClothing
 
 class ClothingListAdapter(private val clothingItemClickListener: (id: Int) -> Unit) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<ClothingListAdapter.ClothingItemViewHolder>() {
 
     private lateinit var clothingItemBinding: ViewItemClothingListBinding
-    private lateinit var loadingItemBinding: ViewItemLoadingBinding
     private val clothingListDiffCallback = ClothingListDiffCallback()
     val asyncListDiffer = AsyncListDiffer(this, clothingListDiffCallback)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            TYPE_LOADING -> {
-                loadingItemBinding = ViewItemLoadingBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-                LoadingViewHolder(loadingItemBinding)
-            }
-            else -> {
-                clothingItemBinding = ViewItemClothingListBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent, false
-                )
-                ClothingItemViewHolder(clothingItemBinding)
-            }
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClothingItemViewHolder {
+        clothingItemBinding = ViewItemClothingListBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent, false
+        )
+        return ClothingItemViewHolder(clothingItemBinding)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is ClothingItemViewHolder ->
-                asyncListDiffer.currentList[position].run {
-                    holder.bind(this)
-                    holder.itemView.setOnClickListener { clothingItemClickListener.invoke(id) }
-                }
+    override fun onBindViewHolder(holder: ClothingItemViewHolder, position: Int) {
+        asyncListDiffer.currentList[position].run {
+            holder.bind(this)
+            holder.itemView.setOnClickListener { clothingItemClickListener.invoke(id) }
         }
     }
 
@@ -50,20 +36,6 @@ class ClothingListAdapter(private val clothingItemClickListener: (id: Int) -> Un
 
     override fun getItemViewType(position: Int): Int =
         if (asyncListDiffer.currentList[position] == null) TYPE_LOADING else TYPE_CONTENT
-
-    fun addProgressBar() {
-        asyncListDiffer.currentList.add(null)
-        notifyItemInserted(asyncListDiffer.currentList.size - 1)
-    }
-
-    fun removeProgressBar() {
-        asyncListDiffer.currentList.apply {
-            if (size != 0) {
-                removeAt(size - 1)
-                notifyItemRemoved(size)
-            }
-        }
-    }
 
     inner class ClothingItemViewHolder(private val binding: ViewItemClothingListBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -81,14 +53,6 @@ class ClothingListAdapter(private val clothingItemClickListener: (id: Int) -> Un
                 R.string.published_date,
                 clothingModel.publishedDate
             )
-        }
-
-    }
-
-    inner class LoadingViewHolder(binding: ViewItemLoadingBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.itemProgressBar
         }
     }
 
