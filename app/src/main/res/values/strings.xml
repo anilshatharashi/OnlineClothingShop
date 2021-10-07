@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ClothingStore</string>
+    <string name="no_internet_message">"Please check your Internet connection"</string>
+    <string name="error_message">Error in Fetching the ClothingList</string>
+    <string name="unknown_error_message">Unknown Error</string>
+    <string name="title_clothing_list_fragment">Clothing List</string>
+    <string name="published_date">Published on : %1s</string>
+    <string name="price_amount">Price: %.0f€</string>
+    <string name="shipping_cost">National shipping cost: %.0f€</string>
+</resources>

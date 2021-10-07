@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clothingCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/padding_standard_root_layout">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/thumbnailView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/descriptionView"
+        style="@style/clothingListItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        app:layout_constraintBottom_toTopOf="@+id/activeStatusView"
+        app:layout_constraintStart_toEndOf="@id/thumbnailView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Long description would be displayed here and Long description would be displayed here and" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/activeStatusView"
+        style="@style/clothingListItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/addressView"
+        app:layout_constraintStart_toEndOf="@id/thumbnailView"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionView"
+        tools:text="active" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/addressView"
+        style="@style/clothingListItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/priceAmountView"
+        app:layout_constraintStart_toEndOf="@id/thumbnailView"
+        app:layout_constraintTop_toBottomOf="@+id/activeStatusView"
+        tools:text="Frankfurt" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/priceAmountView"
+        style="@style/clothingListItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/thumbnailView"
+        app:layout_constraintTop_toBottomOf="@+id/addressView"
+        tools:text="4.5$" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/publishedDateView"
+        style="@style/clothingListItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/priceAmountView"
+        app:layout_constraintTop_toBottomOf="@+id/addressView"
+        tools:text="13 Sep, 2021" />
+</androidx.constraintlayout.widget.ConstraintLayout>
