@@ -37,8 +37,7 @@ class ClothingListFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel.imageWidth = arguments?.getInt(WIDTH)
-        viewModel.imageHeight = arguments?.getInt(HEIGHT)
+        viewModel.imageWidth = arguments?.getInt(SMALLEST_WIDTH)
         Log.i("**", "Width = ${viewModel.imageWidth}, Height = ${viewModel.imageHeight}")
     }
 
@@ -150,13 +149,11 @@ class ClothingListFragment : BaseFragment() {
     }
 
     companion object {
-        private const val WIDTH = "width"
-        private const val HEIGHT = "height"
+        private const val SMALLEST_WIDTH = "width"
 
-        fun newInstance(width: Int, height: Int) = ClothingListFragment().apply {
+        fun newInstance(width: Int) = ClothingListFragment().apply {
             arguments = Bundle().apply {
-                putInt(WIDTH, width)
-                putInt(HEIGHT, height)
+                putInt(SMALLEST_WIDTH, width)
             }
         }
     }

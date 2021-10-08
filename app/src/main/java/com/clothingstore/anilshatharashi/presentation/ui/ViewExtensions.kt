@@ -1,7 +1,11 @@
 package com.clothingstore.anilshatharashi.presentation.ui
 
 import android.app.Activity
-import android.content.res.Configuration
+import android.os.Build
+import android.util.DisplayMetrics
+import android.util.Log
+import android.view.WindowInsets
+import android.view.WindowInsets.Type.navigationBars
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.clothingstore.anilshatharashi.R
@@ -19,22 +23,23 @@ fun FragmentActivity.addFragment(fragment: Fragment, tag: String?) {
         .commit()
 }
 
-fun Activity.getWidthAndHeightOfTheDevice(): Pair<Int, Int> {
-    val screenSize = (resources.configuration.screenLayout
-            and Configuration.SCREENLAYOUT_SIZE_MASK)
-    when {
-        screenSize >= Configuration.SCREENLAYOUT_SIZE_XLARGE -> {
-            return Pair(first = 720, second = 960)
+fun Activity.getSmallestWidthOfTheDevice(): Int {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        return with(windowManager.currentWindowMetrics) {
+            windowInsets.getInsetsIgnoringVisibility(
+                navigationBars()
+                        or WindowInsets.Type.displayCutout()
+            ).run {
+                val widthDp = bounds.width() - (right + left)
+                val heightDp = bounds.height() - (top + bottom)
+                widthDp.coerceAtMost(heightDp)
+            }
         }
-        screenSize >= Configuration.SCREENLAYOUT_SIZE_LARGE -> {
-            return Pair(first = 480, second = 640)
-        }
-        screenSize >= Configuration.SCREENLAYOUT_SIZE_NORMAL -> {
-            return Pair(first = 320, second = 470)
-        }
-        screenSize >= Configuration.SCREENLAYOUT_SIZE_SMALL -> {
-            return Pair(first = 320, second = 426)
-        }
+    } else return with(DisplayMetrics()) {
+        windowManager.defaultDisplay.getMetrics(this)
+        val widthDp = widthPixels / density
+        val heightDp = heightPixels / density
+        Log.i("**", "======== = ")
+        widthDp.coerceAtMost(heightDp).toInt()
     }
-    return Pair(0, 0)
 }

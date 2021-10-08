@@ -21,10 +21,8 @@ class ClothingListActivity : AppCompatActivity() {
         binding = ActivityClothingListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val dimens = getWidthAndHeightOfTheDevice()
-
         if (savedInstanceState == null) {
-            addFragment(ClothingListFragment.newInstance(dimens.first, dimens.second), null)
+            addFragment(ClothingListFragment.newInstance(getSmallestWidthOfTheDevice()), null)
         }
         clothingListViewModel.selectedClothingLiveData.observe(this, {
             if (supportFragmentManager.findFragmentByTag(ClothingDetailFragment.FRAGMENT_TAG) == null) {
