@@ -1,9 +1,7 @@
 package com.clothingstore.anilshatharashi.presentation.ui
 
 import android.app.Activity
-import android.content.Context
-import android.view.View
-import android.view.inputmethod.InputMethodManager
+import android.content.res.Configuration
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.clothingstore.anilshatharashi.R
@@ -21,11 +19,22 @@ fun FragmentActivity.addFragment(fragment: Fragment, tag: String?) {
         .commit()
 }
 
-fun Fragment.hideKeyboard() {
-    view?.let { activity?.applicationContext?.hideKeyboard(it) }
-}
-
-fun Context.hideKeyboard(view: View) {
-    val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+fun Activity.getWidthAndHeightOfTheDevice(): Pair<Int, Int> {
+    val screenSize = (resources.configuration.screenLayout
+            and Configuration.SCREENLAYOUT_SIZE_MASK)
+    when {
+        screenSize >= Configuration.SCREENLAYOUT_SIZE_XLARGE -> {
+            return Pair(first = 720, second = 960)
+        }
+        screenSize >= Configuration.SCREENLAYOUT_SIZE_LARGE -> {
+            return Pair(first = 480, second = 640)
+        }
+        screenSize >= Configuration.SCREENLAYOUT_SIZE_NORMAL -> {
+            return Pair(first = 320, second = 470)
+        }
+        screenSize >= Configuration.SCREENLAYOUT_SIZE_SMALL -> {
+            return Pair(first = 320, second = 426)
+        }
+    }
+    return Pair(0, 0)
 }
