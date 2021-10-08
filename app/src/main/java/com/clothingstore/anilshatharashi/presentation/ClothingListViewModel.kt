@@ -18,6 +18,8 @@ class ClothingListViewModel @Inject constructor(
     private val mapper: ClothingListUiMapper
 ) : ViewModel() {
     val pageIndex = MutableLiveData(1)
+    var imageWidth: Int? = 0
+    var imageHeight: Int? = 0
 
     private val _isLastPage = MutableLiveData(false)
     val isLastPage: LiveData<Boolean> = _isLastPage

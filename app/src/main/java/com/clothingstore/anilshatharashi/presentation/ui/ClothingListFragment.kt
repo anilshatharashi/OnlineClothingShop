@@ -1,6 +1,7 @@
 package com.clothingstore.anilshatharashi.presentation.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -36,6 +37,9 @@ class ClothingListFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        viewModel.imageWidth = arguments?.getInt(WIDTH)
+        viewModel.imageHeight = arguments?.getInt(HEIGHT)
+        Log.i("**", "Width = ${viewModel.imageWidth}, Height = ${viewModel.imageHeight}")
     }
 
     override fun onCreateView(
@@ -146,6 +150,14 @@ class ClothingListFragment : BaseFragment() {
     }
 
     companion object {
-        fun newInstance() = ClothingListFragment()
+        private const val WIDTH = "width"
+        private const val HEIGHT = "height"
+
+        fun newInstance(width: Int, height: Int) = ClothingListFragment().apply {
+            arguments = Bundle().apply {
+                putInt(WIDTH, width)
+                putInt(HEIGHT, height)
+            }
+        }
     }
 }
