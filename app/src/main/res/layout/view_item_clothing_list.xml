@@ -1,87 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/clothingCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:paddingTop="@dimen/padding_standard"
-    android:paddingBottom="@dimen/padding_standard">
+    app:cardCornerRadius="@dimen/margin_standard"
+    app:cardElevation="@dimen/margin_tiny"
+    app:cardUseCompatPadding="true">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/thumbnailView"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clothingCard"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerInside"
-        android:layout_marginStart="@dimen/margin_standard"
-        app:layout_constraintEnd_toStartOf="@id/horizontalGuideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        android:background="@drawable/bg_selector_recyclerview_item"
+        android:paddingTop="@dimen/padding_standard"
+        android:paddingBottom="@dimen/padding_standard">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontalGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/thumbnailView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_standard"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toStartOf="@id/horizontalGuideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_launcher_foreground" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/descriptionView"
-        style="@style/clothingListItemStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="4"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintBottom_toTopOf="@+id/activeStatusView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/horizontalGuideline"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:text="Long description would be displayed here and Long description would be displayed here and" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontalGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/activeStatusView"
-        style="@style/clothingListItemStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/addressView"
-        app:layout_constraintStart_toEndOf="@id/horizontalGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionView"
-        tools:text="active" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/descriptionView"
+            style="@style/clothingListItemStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="4"
+            android:textColor="@color/black"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@+id/activeStatusView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/horizontalGuideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Long description would be displayed here and Long description would be displayed here and" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/addressView"
-        style="@style/clothingListItemStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@id/activeStatusView"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionView"
-        tools:text="Frankfurt" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/activeStatusView"
+            style="@style/clothingListItemStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/green"
+            app:layout_constraintBottom_toTopOf="@+id/addressView"
+            app:layout_constraintStart_toEndOf="@id/horizontalGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionView"
+            tools:text="active" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/priceAmountView"
-        style="@style/clothingListItemStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/horizontalGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/addressView"
-        tools:text="4.5$" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/addressView"
+            style="@style/clothingListItemStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@id/activeStatusView"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionView"
+            tools:text="Frankfurt" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/publishedDateView"
-        style="@style/clothingListItemStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@id/priceAmountView"
-        app:layout_constraintTop_toBottomOf="@+id/addressView"
-        tools:text="13 Sep, 2021" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/priceAmountView"
+            style="@style/clothingListItemStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/horizontalGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/addressView"
+            tools:text="4.5$" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/publishedDateView"
+            style="@style/clothingListItemStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@id/priceAmountView"
+            app:layout_constraintTop_toBottomOf="@+id/addressView"
+            tools:text="13 Sep, 2021" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

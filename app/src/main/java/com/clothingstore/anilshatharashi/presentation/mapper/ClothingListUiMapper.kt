@@ -1,6 +1,5 @@
 package com.clothingstore.anilshatharashi.presentation.mapper
 
-import android.util.Log
 import com.clothingstore.anilshatharashi.domain.Clothing
 import com.clothingstore.anilshatharashi.domain.ClothingList
 import com.clothingstore.anilshatharashi.domain.PictureDimensions
@@ -69,8 +68,6 @@ class ClothingListUiMapper @Inject constructor(
             if (photoSizes.second == value.width)
                 covertPhotoUrl = value.url
         }
-        Log.i("**", "thumb=$thumbnailUrl")
-        Log.i("**", "cover=$covertPhotoUrl")
         return Pair(thumbnailUrl, covertPhotoUrl)
     }
 
