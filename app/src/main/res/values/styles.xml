@@ -12,13 +12,13 @@
         <item name="android:layout_marginTop">@dimen/margin_tiny</item>
     </style>
 
-    <style name="clothingDetailsHeadingBold" parent="clothingListItemStyle">
-        <item name="android:textSize">@dimen/headline_text_view</item>
+    <style name="clothingDetails" parent="clothingListItemStyle">
+        <item name="android:textSize">@dimen/description_text_size</item>
+    </style>
+
+    <style name="clothingDetailsBold" parent="clothingDetails">
         <item name="android:fontFamily">sans-serif-black</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="clothingDetailsLarge" parent="clothingDetailsHeadingBold">
-        <item name="android:textSize">20sp</item>
-    </style>
 </resources>

@@ -6,6 +6,7 @@ import com.clothingstore.anilshatharashi.domain.ClothingList
 import com.clothingstore.anilshatharashi.domain.usecase.GetClothingListUseCase
 import com.clothingstore.anilshatharashi.presentation.ClothingListState.*
 import com.clothingstore.anilshatharashi.presentation.mapper.ClothingListUiMapper
+import com.clothingstore.anilshatharashi.presentation.model.UiClothing
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
@@ -26,8 +27,8 @@ class ClothingListViewModel @Inject constructor(
     private val _isNextPageLoading = MutableLiveData(false)
     val isNextPageLoading: LiveData<Boolean> = _isNextPageLoading
 
-    private val _selectedClothingLiveData = SingleLiveEvent<Int>()
-    val selectedClothingLiveData: LiveData<Int> = _selectedClothingLiveData
+    private val _selectedClothingLiveData = SingleLiveEvent<UiClothing>()
+    val selectedClothingLiveData: LiveData<UiClothing> = _selectedClothingLiveData
 
     private val _clothingListState = MutableStateFlow<ClothingListState>(Loading)
     val clothingListState: LiveData<ClothingListState> = _clothingListState.asLiveData()
@@ -60,7 +61,7 @@ class ClothingListViewModel @Inject constructor(
         return Success(mapper.mapFrom(it))
     }
 
-    fun onClothingItemSelected(id: Int) {
-        _selectedClothingLiveData.postValue(id)
+    fun onClothingItemSelected(uiClothing: UiClothing) {
+        _selectedClothingLiveData.postValue(uiClothing)
     }
 }

@@ -5,49 +5,60 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.clothingstore.anilshatharashi.R
 import com.clothingstore.anilshatharashi.ClothingListActivity
+import com.clothingstore.anilshatharashi.R
+import com.clothingstore.anilshatharashi.databinding.FragmentClothingDetailBinding
 import com.clothingstore.anilshatharashi.presentation.model.UiClothing
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ClothingDetailFragment : Fragment() {
 
-    private var clothingId: String? = null
     private var clothing: UiClothing? = null
+
+    private var _binding: FragmentClothingDetailBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (arguments != null) {
-            clothingId = arguments?.getString(SELECTED_RESTAURANT_KEY)
+            clothing = arguments?.getParcelable(SELECTED_CLOTHING_KEY)
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-        val rootView: View = inflater.inflate(R.layout.fragment_clothing_detail, container, false)
-        clothing?.let { renderDataOnUi(rootView, it) }
-        return rootView
-    }
+        _binding = FragmentClothingDetailBinding.inflate(inflater, container, false)
+        val context = binding.root.context
+        binding.apply {
+            updateToolbar(context?.getString(R.string.clothing_detail))
+            detailDescriptionView.text = context?.getString(R.string.description,
+                clothing?.description)
 
-    private fun renderDataOnUi(rootView: View?, model: UiClothing) {
-       /* updateToolbar(model.name)
-        rootView?.run {
-            detailTitleView.text = model.name
-            detailReleasedOnView.text = getString(R.string.published_date, model.openState)
+            detailsAddressView.text = context?.getString(R.string.address, clothing?.address)
+            detailInternationalShippingView.text = context?.getString(
+                R.string.international_shipping_cost, clothing?.internationalShippingCost
+            )
+            detailNationalShippingView.text = context?.getString(R.string.national_shipping_cost,
+                clothing?.nationalShippingCost)
 
-            userRatingsValueView.text = model.uiSortingValues.ratingAverage.toString()
+            detailPriceView.text = context?.getString(R.string.price_amount, clothing?.priceAmount)
+            detailHandDeliveryView.text = context?.getString(R.string.hand_delivery,
+                clothing?.handDelivery.toString())
 
-        }*/
+            clothing?.picturesData?.first()?.thumbnailAndCoverPhotoUrls?.second
+                ?.let { url -> detailImageView.loadFromUrl(url) }
+        }
+        return binding.root
     }
 
     private fun updateToolbar(toolbarTitle: String?) {
-        val clothinglistActivity = activity as ClothingListActivity
-        clothinglistActivity.supportActionBar?.apply {
+        val clothingListActivity = activity as ClothingListActivity
+        clothingListActivity.supportActionBar?.apply {
             title = toolbarTitle
             setDisplayShowHomeEnabled(true)
             setDisplayHomeAsUpEnabled(true)
@@ -55,13 +66,18 @@ class ClothingDetailFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     companion object {
         const val FRAGMENT_TAG = "clothing_details_frag"
-        private const val SELECTED_RESTAURANT_KEY = "selected_clothing"
-        fun newInstance(clothingId: Int): ClothingDetailFragment =
+        private const val SELECTED_CLOTHING_KEY = "selected_clothing"
+        fun newInstance(uiClothing: UiClothing): ClothingDetailFragment =
             ClothingDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(SELECTED_RESTAURANT_KEY, clothingId)
+                    putParcelable(SELECTED_CLOTHING_KEY, uiClothing)
                 }
             }
     }

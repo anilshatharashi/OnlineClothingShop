@@ -9,7 +9,7 @@ import com.clothingstore.anilshatharashi.databinding.ViewItemClothingListBinding
 import com.clothingstore.anilshatharashi.databinding.ViewItemLoadingBinding
 import com.clothingstore.anilshatharashi.presentation.model.UiClothing
 
-class ClothingListAdapter(private val clothingItemClickListener: (id: Int) -> Unit) :
+class ClothingListAdapter(private val clothingItemClickListener: (uiClothing: UiClothing) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private lateinit var clothingItemBinding: ViewItemClothingListBinding
@@ -39,7 +39,7 @@ class ClothingListAdapter(private val clothingItemClickListener: (id: Int) -> Un
             is ClothingItemViewHolder ->
                 clothingList[position]?.run {
                     holder.bind(this)
-                    holder.itemView.setOnClickListener { clothingItemClickListener.invoke(id) }
+                    holder.itemView.setOnClickListener { clothingItemClickListener.invoke(this) }
                 }
         }
     }

@@ -1,5 +1,9 @@
 package com.clothingstore.anilshatharashi.presentation.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
+
 data class UiClothingModel(
     var clothingList: List<UiClothing>,
     var meta: UiMeta
@@ -10,7 +14,7 @@ data class UiMeta(
     var last_offset_id: String = "",
     var end: Boolean = false
 )
-
+@Parcelize
 data class UiClothing(
     var id: Int = 0,
     var userId: Int = 0,
@@ -22,7 +26,7 @@ data class UiClothing(
     var description: String = "",
     var internationalShippingCost: String = "",
     var nationalShippingCost: String = "",
-    var picturesData: List<UiPictures> = emptyList(),
+    var picturesData: @RawValue List<UiPictures> = emptyList(),
     var priceAmount: Double = 0.0,
     var priceCurrency: String = "",
     var publishedDate: String = "",
@@ -32,9 +36,9 @@ data class UiClothing(
     var variantSet: Int = 0,
     var variants: Map<String, Int> = emptyMap(),
     var handDelivery: Boolean = false,
-    var userData: UiUser = UiUser(),
+    var userData: @RawValue UiUser = UiUser(),
     var brandId: Int = 0,
-)
+) : Parcelable
 
 data class UiPictures(
     var id: Int = 0,

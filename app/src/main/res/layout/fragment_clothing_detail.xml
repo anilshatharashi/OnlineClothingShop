@@ -10,20 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/detailImageView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scaleType="center"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.4"
+            app:layout_constraintHeight_percent="0.55"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
-        <TextView
-            android:id="@+id/detailTitleView"
-            style="@style/clothingDetailsHeadingBold"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailDescriptionView"
+            style="@style/clothingDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_standard"
@@ -31,59 +30,52 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detailImageView" />
 
-        <TextView
-            android:id="@+id/detailReleasedOnView"
-            style="@style/clothingListItemStyle"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailInternationalShippingView"
+            style="@style/clothingDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            app:layout_constraintBottom_toTopOf="@+id/userRatingsLabel"
+            app:layout_constraintBottom_toTopOf="@+id/detailNationalShippingView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailTitleView" />
+            app:layout_constraintTop_toBottomOf="@+id/detailDescriptionView" />
 
-        <TextView
-            android:id="@+id/userRatingsLabel"
-            style="@style/clothingListItemStyle"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailNationalShippingView"
+            style="@style/clothingDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_32"
-            android:layout_marginBottom="@dimen/margin_32"
-            android:text="@string/app_name"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/detailOverviewLabel"
+            app:layout_constraintBottom_toTopOf="@+id/detailPriceView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailReleasedOnView" />
+            app:layout_constraintTop_toBottomOf="@+id/detailInternationalShippingView" />
 
-        <TextView
-            android:id="@+id/userRatingsValueView"
-            style="@style/clothingListItemStyle"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailsAddressView"
+            style="@style/clothingDetailsBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/detailOverviewLabel"
-            app:layout_constraintStart_toEndOf="@id/userRatingsLabel"
-            app:layout_constraintTop_toBottomOf="@+id/detailReleasedOnView" />
-
-        <TextView
-            android:id="@+id/detailOverviewLabel"
-            style="@style/clothingDetailsLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/app_name"
-            app:layout_constraintBottom_toTopOf="@+id/detailOverviewContent"
+            app:layout_constraintBottom_toTopOf="@+id/detailPriceView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userRatingsLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/detailNationalShippingView" />
 
-        <TextView
-            android:id="@+id/detailOverviewContent"
-            style="@style/clothingListItemStyle"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailPriceView"
+            style="@style/clothingDetailsBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/detailHandDeliveryView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsAddressView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detailHandDeliveryView"
+            style="@style/clothingDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_standard"
+            android:layout_marginBottom="@dimen/margin_standard"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailOverviewLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/detailPriceView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -6,8 +6,9 @@
     <dimen name="margin_tiny">4dp</dimen>
     <dimen name="margin_32">32dp</dimen>
     <dimen name="padding_tiny">4dp</dimen>
-    <dimen name="headline_text_view">24sp</dimen>
 
+    <dimen name="headline_text_size">24sp</dimen>
+    <dimen name="description_text_size">14sp</dimen>
 
     <dimen name="poster_view_margin_bottom">20dp</dimen>
     <dimen name="card_elevation">8dp</dimen>
