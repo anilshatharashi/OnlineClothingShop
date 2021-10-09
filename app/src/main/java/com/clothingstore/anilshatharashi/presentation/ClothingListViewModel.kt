@@ -15,11 +15,10 @@ import javax.inject.Inject
 @HiltViewModel
 class ClothingListViewModel @Inject constructor(
     private val getClothingListUseCase: GetClothingListUseCase,
-    private val mapper: ClothingListUiMapper
+    private val mapper: ClothingListUiMapper,
 ) : ViewModel() {
     val pageIndex = MutableLiveData(1)
-    var imageWidth: Int? = 0
-    var imageHeight: Int? = 0
+    var smallestWidth: Int = 0
 
     private val _isLastPage = MutableLiveData(false)
     val isLastPage: LiveData<Boolean> = _isLastPage
@@ -48,16 +47,14 @@ class ClothingListViewModel @Inject constructor(
                             ?: Failure(ErrorFetchingClothingListData)
                     }
             } catch (exception: Exception) {
-                Log.e(
-                    "***ListViewModel",
-                    "exception = $exception\nstacktrace =${exception.printStackTrace()}"
-                )
+                Log.e("***ViewModel", " stacktrace =${exception.printStackTrace()}")
                 _clothingListState.value = Failure(exception)
             }
         }
     }
 
     private fun handleSuccess(it: ClothingList): Success {
+        mapper.smallestWidth = smallestWidth
         _isLastPage.postValue(it.meta?.end)
         _isNextPageLoading.postValue(false)
         return Success(mapper.mapFrom(it))

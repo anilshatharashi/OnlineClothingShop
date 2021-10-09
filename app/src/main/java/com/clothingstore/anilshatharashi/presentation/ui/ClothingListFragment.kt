@@ -37,8 +37,8 @@ class ClothingListFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel.imageWidth = arguments?.getInt(SMALLEST_WIDTH)
-        Log.i("**", "Width = ${viewModel.imageWidth}, Height = ${viewModel.imageHeight}")
+        viewModel.smallestWidth = arguments?.getInt(SMALLEST_WIDTH) ?:0
+        Log.i("**", "Width = ${viewModel.smallestWidth}")
     }
 
     override fun onCreateView(

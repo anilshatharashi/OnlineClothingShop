@@ -38,13 +38,7 @@ data class UiClothing(
 
 data class UiPictures(
     var id: Int = 0,
-    var formats: Map<String, UiPictureDimensions> = emptyMap()
-)
-
-data class UiPictureDimensions(
-    var url: String = "",
-    var height: Int = 0,
-    var width: Int = 0
+    var thumbnailAndCoverPhotoUrls: Pair<String?, String?>,
 )
 
 data class UiUser(var id: Int = 0)

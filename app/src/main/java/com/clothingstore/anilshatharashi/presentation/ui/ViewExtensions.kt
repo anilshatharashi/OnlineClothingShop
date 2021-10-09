@@ -6,8 +6,11 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowInsets.Type.navigationBars
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.clothingstore.anilshatharashi.R
 
 fun FragmentActivity.replaceFragment(fragment: Fragment, tag: String?) {
@@ -22,6 +25,12 @@ fun FragmentActivity.addFragment(fragment: Fragment, tag: String?) {
         .replace(R.id.container, fragment, tag)
         .commit()
 }
+
+fun ImageView.loadFromUrl(url: String) =
+    Glide.with(this.context.applicationContext)
+        .load(url)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(this)
 
 fun Activity.getSmallestWidthOfTheDevice(): Int {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

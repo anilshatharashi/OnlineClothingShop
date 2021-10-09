@@ -74,7 +74,10 @@ class ClothingListAdapter(private val clothingItemClickListener: (id: Int) -> Un
 
         fun bind(clothingModel: UiClothing) {
             binding.activeStatusView.text = clothingModel.activeStatus
-//            binding.thumbnailView.text = clothingModel.picturesData
+            clothingModel.picturesData.let {
+                it.first().thumbnailAndCoverPhotoUrls.first
+                    ?.let { url -> binding.thumbnailView.loadFromUrl(url) }
+            }
             binding.addressView.text = clothingModel.address
             binding.descriptionView.text = clothingModel.description
             binding.priceAmountView.text = binding.root.context?.getString(
