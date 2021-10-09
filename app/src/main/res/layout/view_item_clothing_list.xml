@@ -12,9 +12,18 @@
         android:id="@+id/thumbnailView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toStartOf="@id/horizontalGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/descriptionView"
@@ -23,7 +32,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="none"
         app:layout_constraintBottom_toTopOf="@+id/activeStatusView"
-        app:layout_constraintStart_toEndOf="@id/thumbnailView"
+        app:layout_constraintStart_toEndOf="@id/horizontalGuideline"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="Long description would be displayed here and Long description would be displayed here and" />
@@ -34,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/addressView"
-        app:layout_constraintStart_toEndOf="@id/thumbnailView"
+        app:layout_constraintStart_toEndOf="@id/horizontalGuideline"
         app:layout_constraintTop_toBottomOf="@+id/descriptionView"
         tools:text="active" />
 
@@ -44,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/priceAmountView"
-        app:layout_constraintStart_toEndOf="@id/thumbnailView"
+        app:layout_constraintStart_toEndOf="@id/horizontalGuideline"
         app:layout_constraintTop_toBottomOf="@+id/activeStatusView"
         tools:text="Frankfurt" />
 
@@ -54,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/thumbnailView"
+        app:layout_constraintStart_toEndOf="@id/horizontalGuideline"
         app:layout_constraintTop_toBottomOf="@+id/addressView"
         tools:text="4.5$" />
 
@@ -69,4 +78,5 @@
         app:layout_constraintStart_toEndOf="@id/priceAmountView"
         app:layout_constraintTop_toBottomOf="@+id/addressView"
         tools:text="13 Sep, 2021" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
