@@ -6,13 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:padding="@dimen/padding_standard_root_layout">
+    android:paddingTop="@dimen/padding_standard"
+    android:paddingBottom="@dimen/padding_standard">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/thumbnailView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerInside"
+        android:layout_marginStart="@dimen/margin_standard"
         app:layout_constraintEnd_toStartOf="@id/horizontalGuideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,8 +32,10 @@
         style="@style/clothingListItemStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="none"
+        android:maxLines="4"
+        app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toTopOf="@+id/activeStatusView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/horizontalGuideline"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
@@ -52,9 +56,10 @@
         style="@style/clothingListItemStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/priceAmountView"
-        app:layout_constraintStart_toEndOf="@id/horizontalGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/activeStatusView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/activeStatusView"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionView"
         tools:text="Frankfurt" />
 
     <androidx.appcompat.widget.AppCompatTextView
