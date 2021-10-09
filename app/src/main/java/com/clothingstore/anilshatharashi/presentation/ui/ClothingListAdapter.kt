@@ -74,7 +74,7 @@ class ClothingListAdapter(private val clothingItemClickListener: (uiClothing: Ui
 
         fun bind(clothingModel: UiClothing) {
             binding.activeStatusView.text = clothingModel.activeStatus
-            clothingModel.picturesData.let {
+            clothingModel.uiPictures.let {
                 it.first().thumbnailAndCoverPhotoUrls.first
                     ?.let { url -> binding.thumbnailView.loadFromUrl(url) }
             }

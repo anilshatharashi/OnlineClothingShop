@@ -50,7 +50,7 @@ class ClothingDetailFragment : Fragment() {
             detailHandDeliveryView.text = context?.getString(R.string.hand_delivery,
                 clothing?.handDelivery.toString())
 
-            clothing?.picturesData?.first()?.thumbnailAndCoverPhotoUrls?.second
+            clothing?.uiPictures?.first()?.thumbnailAndCoverPhotoUrls?.second
                 ?.let { url -> detailImageView.loadFromUrl(url) }
         }
         return binding.root

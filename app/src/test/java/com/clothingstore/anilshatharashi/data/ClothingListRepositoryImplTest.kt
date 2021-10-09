@@ -22,38 +22,38 @@ class ClothingListRepositoryImplTest {
 
     private lateinit var networkHandler: NetworkHandler
     private lateinit var mapper: Mapper<ClothingListResponse?, ClothingList?>
-    private lateinit var clothinglistRemoteDataSource: ClothingListRemoteDataSource
+    private lateinit var remoteDataSource: ClothingListRemoteDataSource
     private lateinit var repository: ClothingListRepositoryImpl
 
     @Before
     fun setUp() {
-        clothinglistRemoteDataSource = mockk()
+        remoteDataSource = mockk()
         networkHandler = mockk()
         mapper = ClothingListDomainMapper()
-        repository = ClothingListRepositoryImpl(clothinglistRemoteDataSource, mapper)
+        repository = ClothingListRepositoryImpl(remoteDataSource, mapper)
     }
 
     @Test
     fun `getClothingListList calls a correct function`() = runBlocking {
-        val clothinglistFlow = MutableSharedFlow<ClothingListResponse>()
+        val clothingListFlow = MutableSharedFlow<ClothingListResponse>()
         coEvery { networkHandler.isConnected() } returns true
-        coEvery { clothinglistRemoteDataSource.fetchClothingListData() } returns clothinglistFlow
+        coEvery { remoteDataSource.fetchClothingListData(1) } returns clothingListFlow
 
-        repository.getClothingList()
+        repository.getClothingList(1)
 
-        coVerify(exactly = 1) { clothinglistRemoteDataSource.fetchClothingListData() }
+        coVerify(exactly = 1) { remoteDataSource.fetchClothingListData(1) }
     }
 
     @Test
     fun `throw NoInternet Exception when it's not connected to internet`() {
-        val clothinglistFlow = MutableSharedFlow<ClothingListResponse>()
+        val clothingListFlow = MutableSharedFlow<ClothingListResponse>()
 
         coEvery { networkHandler.isConnected() } returns false
-        coEvery { clothinglistRemoteDataSource.fetchClothingListData() } returns clothinglistFlow
+        coEvery { remoteDataSource.fetchClothingListData(1) } returns clothingListFlow
 
         runBlocking {
             try {
-                repository.getClothingList()
+                repository.getClothingList(1)
             } catch (e: Exception) {
                 assertTrue(e is NoInternet)
             }
@@ -63,10 +63,10 @@ class ClothingListRepositoryImplTest {
     @Test
     fun `test exception thrown from the network call should not be caught inside repository`() {
         coEvery { networkHandler.isConnected() } returns true
-        coEvery { clothinglistRemoteDataSource.fetchClothingListData() } throws UnknownHostException()
+        coEvery { remoteDataSource.fetchClothingListData(1) } throws UnknownHostException()
         runBlocking {
             try {
-                repository.getClothingList()
+                repository.getClothingList(1)
             } catch (e: Exception) {
                 assertTrue(e is UnknownHostException)
             }

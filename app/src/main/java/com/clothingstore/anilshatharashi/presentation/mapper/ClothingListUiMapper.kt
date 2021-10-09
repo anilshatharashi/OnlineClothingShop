@@ -45,7 +45,7 @@ class ClothingListUiMapper @Inject constructor(
                 dateFormatter.formatToStringDateTime(it.pubDate),
                 dateFormatter.formatToStringDateTime(it.createdDate),
                 it.purchaseViaPaypal,
-                it.slug,
+                it.slug?:"",
                 it.variantSet,
                 it.variants ?: emptyMap(),
                 it.handDelivery,
@@ -79,7 +79,7 @@ class ClothingListUiMapper @Inject constructor(
         var thumbnailSize = 0
         var coverPhotoSize = 0
         when (smallestWidth) {
-            in 320..480 -> {
+            in 320..479 -> {
                 thumbnailSize = 320; coverPhotoSize = 480
             }
             in 480..599 -> {
