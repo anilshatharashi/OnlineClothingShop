@@ -17,14 +17,14 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.clothingstore.anilshatharashi.CustomTestRunner"
     }
 
     def keys = new Properties()
     file("../keys.properties").withInputStream {
         stream -> keys.load(stream)
     }
-    
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -34,7 +34,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", "\"" + keys.BASE_URL_DEBUG + "\"" // this can be moved under the product flavors
+            buildConfigField "String", "BASE_URL", "\"" + keys.BASE_URL_DEBUG + "\""
+            // this can be moved under the product flavors
         }
     }
 
@@ -50,6 +51,14 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+}
+
+kapt {
+    arguments {
+        // Make Hilt share the same definition of Components in tests instead of
+        // creating a new set of Components per test class.
+        arg("dagger.hilt.shareTestComponents", "true")
     }
 }
 
@@ -86,12 +95,22 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glideVersion"
 
     implementation 'com.google.code.gson:gson:2.8.6'
+    debugImplementation "androidx.fragment:fragment-testing:$androidxFragmentVersion"
+    debugImplementation 'androidx.test:core:1.3.0-alpha03'
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'androidx.test:core:1.3.0'
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation "io.mockk:mockk:$mockkVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // Hilt testing
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    androidTestImplementation 'androidx.test:core:1.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
+
 }

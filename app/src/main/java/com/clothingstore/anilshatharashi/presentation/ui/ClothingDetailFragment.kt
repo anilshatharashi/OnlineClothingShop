@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.clothingstore.anilshatharashi.ClothingListActivity
 import com.clothingstore.anilshatharashi.R
@@ -76,9 +77,7 @@ class ClothingDetailFragment : Fragment() {
         private const val SELECTED_CLOTHING_KEY = "selected_clothing"
         fun newInstance(uiClothing: UiClothing): ClothingDetailFragment =
             ClothingDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(SELECTED_CLOTHING_KEY, uiClothing)
-                }
+                arguments = bundleOf(SELECTED_CLOTHING_KEY to uiClothing)
             }
     }
 

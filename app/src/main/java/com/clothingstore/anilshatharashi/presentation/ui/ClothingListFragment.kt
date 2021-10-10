@@ -5,10 +5,11 @@ import android.util.Log
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.clothingstore.anilshatharashi.ClothingListActivity
 import com.clothingstore.anilshatharashi.R
 import com.clothingstore.anilshatharashi.databinding.FragmentClothingListBinding
 import com.clothingstore.anilshatharashi.presentation.ClothingListState.*
@@ -72,12 +73,12 @@ class ClothingListFragment : BaseFragment() {
         clothingListAdapter = ClothingListAdapter { viewModel.onClothingItemSelected(it) }
         recyclerView.adapter = clothingListAdapter
 
-        updateToolbar(getString(R.string.title_clothing_list_fragment))
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updateToolbar(getString(R.string.title_clothing_list_fragment))
         viewModel.clothingListState.observe(viewLifecycleOwner) {
             when (it) {
                 is Loading -> showLoadingView()
@@ -91,17 +92,17 @@ class ClothingListFragment : BaseFragment() {
         }
     }
 
-    private fun showLoadingView() {
+    fun showLoadingView() {
         _progressBar.visibility = View.VISIBLE
         recyclerView.visibility = View.GONE
     }
 
-    private fun hideLoadingView() {
+    fun hideLoadingView() {
         _progressBar.visibility = View.GONE
         recyclerView.visibility = View.VISIBLE
     }
 
-    private fun handleFailure(exception: Exception) {
+    fun handleFailure(exception: Exception) {
         when (exception) {
             is NoInternet -> showErrorMessage(getString(R.string.no_internet_message))
             is ErrorFetchingClothingListData -> showErrorMessage(getString(R.string.error_message))
@@ -109,14 +110,14 @@ class ClothingListFragment : BaseFragment() {
         }
     }
 
-    private fun showErrorMessage(message: String) {
+    fun showErrorMessage(message: String) {
         recyclerView.visibility = View.GONE
         _progressBar.visibility = View.GONE
         emptyStateView.visibility = View.VISIBLE
         emptyStateView.text = message
     }
 
-    private fun showContentView(uiModel: UiClothingModel) {
+    fun showContentView(uiModel: UiClothingModel) {
         if (pageIndex != PAGE_START) clothingListAdapter.removeProgressBar()
         clothingListAdapter.addClothingList(uiModel.clothingList)
 
@@ -125,7 +126,7 @@ class ClothingListFragment : BaseFragment() {
     }
 
     private fun updateToolbar(toolbarTitle: String?) {
-        val clothingActivity = activity as ClothingListActivity
+        val clothingActivity = activity as AppCompatActivity
         clothingActivity.supportActionBar?.apply {
             title = toolbarTitle
             setDisplayShowHomeEnabled(false)
@@ -152,9 +153,7 @@ class ClothingListFragment : BaseFragment() {
         private const val SMALLEST_WIDTH = "width"
 
         fun newInstance(width: Int) = ClothingListFragment().apply {
-            arguments = Bundle().apply {
-                putInt(SMALLEST_WIDTH, width)
-            }
+            arguments = bundleOf(SMALLEST_WIDTH to width)
         }
     }
 }
