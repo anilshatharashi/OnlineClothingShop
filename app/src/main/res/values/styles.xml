@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="OverflowMenu" parent="@android:style/Widget.Material.PopupMenu.Overflow">
-        <item name="android:dropDownHorizontalOffset">-5dip</item>
-        <item name="android:dropDownVerticalOffset">60dip</item>
-    </style>
-
     <style name="clothingListItemStyle">
         <item name="android:paddingStart">@dimen/padding_standard</item>
         <item name="android:paddingEnd">@dimen/padding_standard</item>
