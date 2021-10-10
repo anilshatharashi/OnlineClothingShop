@@ -2,9 +2,6 @@ package com.clothingstore.anilshatharashi.presentation.ui
 
 import android.content.Context
 import androidx.core.os.bundleOf
-import androidx.recyclerview.widget.RecyclerView
-import androidx.test.core.app.ActivityScenario
-import androidx.test.core.app.ActivityScenario.launch
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -14,10 +11,10 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
-import com.clothingstore.anilshatharashi.ClothingListActivity
 import com.clothingstore.anilshatharashi.R
 import com.clothingstore.anilshatharashi.presentation.ui.ClothingListAdapter.ClothingItemViewHolder
 import com.clothingstore.anilshatharashi.utils.RecyclerViewChildActions.Companion.childOfViewAtPositionWithMatcher
+import com.clothingstore.anilshatharashi.utils.launchClothingListActivity
 import com.clothingstore.anilshatharashi.utils.launchFragmentInHiltContainer
 import com.clothingstore.anilshatharashi.utils.mockUiClothingModel
 import com.clothingstore.anilshatharashi.utils.runOnUiThread
@@ -82,12 +79,4 @@ class ClothingListFragmentTest {
                 withText("Published on : 2021-10-08"))))
     }
 
-    private fun launchClothingListActivity(): ActivityScenario<ClothingListActivity>? {
-        val activityScenario = launch(ClothingListActivity::class.java)
-        activityScenario.onActivity { activity ->
-            (activity.findViewById(R.id.clothingListRecyclerView) as RecyclerView).itemAnimator =
-                null
-        }
-        return activityScenario
-    }
 }

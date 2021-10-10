@@ -12,6 +12,6 @@
     <string name="national_shipping_cost">Shipping National : %1s€</string>
     <string name="hand_delivery">Hand delivery : %1s</string>
     <string name="published_date">Published on : %1s</string>
-    <string name="price_amount">Price: %.0f€</string>
+    <string name="price_amount">Price : %.0f€</string>
     <string name="shipping_cost">National shipping cost: %.0f€</string>
 </resources>

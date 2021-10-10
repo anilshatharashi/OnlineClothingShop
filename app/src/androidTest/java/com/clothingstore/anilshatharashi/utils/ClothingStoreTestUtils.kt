@@ -3,6 +3,10 @@ package com.clothingstore.anilshatharashi.utils
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.core.app.ActivityScenario
+import com.clothingstore.anilshatharashi.ClothingListActivity
+import com.clothingstore.anilshatharashi.R
 import com.clothingstore.anilshatharashi.presentation.model.UiClothing
 import com.clothingstore.anilshatharashi.presentation.model.UiClothingModel
 import com.clothingstore.anilshatharashi.presentation.model.UiMeta
@@ -112,3 +116,27 @@ private object ContextHelper {
     val handler = Handler(Looper.getMainLooper())
     val mainThread: Thread = Looper.getMainLooper().thread
 }
+
+fun launchClothingListActivity(): ActivityScenario<ClothingListActivity>? {
+    val activityScenario = ActivityScenario.launch(ClothingListActivity::class.java)
+    activityScenario.onActivity { activity ->
+        (activity.findViewById(R.id.clothingListRecyclerView) as RecyclerView).itemAnimator =
+            null
+    }
+    return activityScenario
+}
+
+fun getSelectedUiClothing() =
+    UiClothing(id = 3,
+        uiPictures = listOf(
+            UiPictures(id = 14,
+                thumbnailAndCoverPhotoUrls = Pair("https://media-photos.depop.com/b0/5673340/1084771509_86561d3c6a514b28ae69f8365007ef06/P5.jpg",
+                    "https://media-photos.depop.com/b0/5673340/1084771509_86561d3c6a514b28ae69f8365007ef06/P6.jpg"))),
+        description = "A Shirt",
+        activeStatus = "InActive",
+        address = "Frankfurt am Main, Germany",
+        priceAmount = 45.0,
+        handDelivery = false,
+        internationalShippingCost = "10",
+        nationalShippingCost = "6",
+        publishedDate = "2021-10-08")

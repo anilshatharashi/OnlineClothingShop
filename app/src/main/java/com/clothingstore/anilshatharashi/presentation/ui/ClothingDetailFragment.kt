@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import com.clothingstore.anilshatharashi.ClothingListActivity
 import com.clothingstore.anilshatharashi.R
 import com.clothingstore.anilshatharashi.databinding.FragmentClothingDetailBinding
 import com.clothingstore.anilshatharashi.presentation.model.UiClothing
@@ -58,7 +58,7 @@ class ClothingDetailFragment : Fragment() {
     }
 
     private fun updateToolbar(toolbarTitle: String?) {
-        val clothingListActivity = activity as ClothingListActivity
+        val clothingListActivity = activity as AppCompatActivity
         clothingListActivity.supportActionBar?.apply {
             title = toolbarTitle
             setDisplayShowHomeEnabled(true)
