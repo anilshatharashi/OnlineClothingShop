@@ -40,8 +40,7 @@ class ClothingDetailFragmentTest {
         launchClothingListActivity()
 
         val arguments = bundleOf("selected_clothing" to uiClothing)
-        val fragment: ClothingDetailFragment =
-            launchFragmentInHiltContainer<ClothingDetailFragment>(arguments) as ClothingDetailFragment
+        launchFragmentInHiltContainer<ClothingDetailFragment>(arguments) as ClothingDetailFragment
 
         onView(withText("Description : A Shirt")).check(matches(isDisplayed()))
         onView(withText("Shipping International : 10€")).check(matches(isDisplayed()))
