@@ -15,4 +15,5 @@
     <dimen name="card_cornor_radius">8dp</dimen>
     <dimen name="clothing_title_size">18sp</dimen>
     <dimen name="clothing_release_date_size">16sp</dimen>
+    <dimen name="clothing_detail_image_height">480dp</dimen>
 </resources>
