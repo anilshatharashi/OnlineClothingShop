@@ -102,10 +102,5 @@ class ClothingListAdapter(private val clothingItemClickListener: (uiClothing: Ui
     companion object {
         private const val TYPE_LOADING = 0
         private const val TYPE_CONTENT = 1
-
-        // Hardcoding the posterSize as I am not maintaining the configuration
-        // in local Database. Ideal way is to make a network request to fetch the Configuration and keep updating it
-        // (for every two weeks or four weeks)
-        private const val posterSize: String = "/w300/"
     }
 }

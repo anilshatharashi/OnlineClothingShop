@@ -38,7 +38,7 @@ class ClothingListViewModel @Inject constructor(
     }
 
     fun fetchClothingList() {
-        val currentPage = pageIndex.value!!
+        val currentPage = pageIndex.value?:1
         if (currentPage > 1) _isNextPageLoading.postValue(true)
         viewModelScope.launch {
             try {

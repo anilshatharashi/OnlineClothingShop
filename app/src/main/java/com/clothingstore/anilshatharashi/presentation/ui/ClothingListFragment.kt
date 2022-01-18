@@ -58,10 +58,10 @@ class ClothingListFragment : BaseFragment() {
                 RecyclerViewPaginationListener(layoutManager) {
 
                 override val isLastPage: Boolean
-                    get() = viewModel.isLastPage.value!!
+                    get() = viewModel.isLastPage.value?:false
 
                 override val isLoading: Boolean
-                    get() = viewModel.isNextPageLoading.value!!
+                    get() = viewModel.isNextPageLoading.value?:false
 
                 override fun loadMoreItems() {
                     viewModel.pageIndex.value = pageIndex++
